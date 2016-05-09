@@ -59,7 +59,7 @@ public class GameSelect implements ActionListener
 		try {
 			//Try to start game
 			Game game = (Game) Class.forName("game.games."+gamename+".StartGame").newInstance();
-			System.out.println("Started game successfully: "+game.gameTitle);
+			System.out.println("Started game successfully: "+game.getGameName());
 		} catch (InstantiationException e) {
 			System.out.println("Error: could not start game: "+gamename);
 		} catch (IllegalAccessException e) {

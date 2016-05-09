@@ -11,25 +11,27 @@ import java.awt.event.MouseWheelListener;
 
 public abstract class InputAdapter implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener
 {
-	static enum EventType{MouseWheelEvent, MouseEvent, KeyEvent};
+	public static final int MouseWheelMask=0b001;
+	public static final int MouseMask     =0b010;
+	public static final int KeyMask       =0b100;
 	class AdvancedInputEvent
 	{
-		public EventType eventType;
+		public byte eventType;
 		
 		public AdvancedInputEvent(MouseWheelEvent ev)
 		{
-			eventType=EventType.MouseWheelEvent;
+			eventType=MouseWheelMask;
 		}
 		public AdvancedInputEvent(MouseEvent ev)
 		{
-			eventType=EventType.MouseEvent;
+			eventType=MouseMask;
 		}
 		public AdvancedInputEvent(KeyEvent ev)
 		{
-			eventType=EventType.KeyEvent;
+			eventType=KeyMask;
 		}
 	}
-	public abstract void InputRecieved(InputEvent arg0, EventType arg1);
+	public abstract void InputRecieved(InputEvent arg0, int arg1);
 	
 	public void mouseWheelMoved(MouseWheelEvent arg0){InputRecieved((InputEvent)arg0, new AdvancedInputEvent(arg0).eventType);}
 	public void mouseDragged   (MouseEvent      arg0){InputRecieved((InputEvent)arg0, new AdvancedInputEvent(arg0).eventType);}

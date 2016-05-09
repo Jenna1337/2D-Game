@@ -11,7 +11,7 @@ public abstract class Ship extends AnimatedObject
 	
 	public Ship()
 	{
-		this(StartGame.game.getWidth()/3, StartGame.game.getHeight()/2);
+		this(StartGame.window.getWidth()/3, StartGame.window.getHeight()/2);
 	}
 	public Ship(double xcoord, double ycoord)
 	{
