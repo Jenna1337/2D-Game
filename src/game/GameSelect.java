@@ -9,6 +9,10 @@ import javax.swing.JPanel;
 public class GameSelect implements ActionListener
 {
 	private boolean cmdStart = false;
+	private static final String[] gamelist={
+		"Burst",
+		"TicTacToe"
+	};
 	public GameSelect(String[] args)
 	{
 		if(args.length>0)
@@ -17,16 +21,15 @@ public class GameSelect implements ActionListener
 		{
 			JFrame frame = new JFrame("Game Select");
 			JPanel panel = new JPanel();
-
-			JButton newg = new JButton("Burst");
-			newg.addActionListener(this);
-			newg.setActionCommand("Burst");
-			panel.add(newg);
-
-			JButton load = new JButton("Game 2");
-			load.addActionListener(this);
-			panel.add(load);
-
+			
+			for(String gn : gamelist)
+			{
+				JButton newg = new JButton(gn);
+				newg.addActionListener(this);
+				newg.setActionCommand(gn);
+				panel.add(newg);
+			}
+			
 			frame.add(panel);
 			frame.pack();
 			frame.setVisible(true);
@@ -44,7 +47,7 @@ public class GameSelect implements ActionListener
 			}
 			catch(ArrayIndexOutOfBoundsException aioobe)
 			{
-
+				
 			}
 		}
 	}

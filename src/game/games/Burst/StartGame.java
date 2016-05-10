@@ -10,8 +10,4 @@ public class StartGame extends Game
 		super();
 		window.add(new Legacy());
 	}
-	public static void main(String[] agrs)
-	{
-		new StartGame();
-	}
 }

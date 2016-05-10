@@ -3,6 +3,7 @@ package input;
 import java.awt.event.InputEvent;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class Decoder
@@ -10,7 +11,7 @@ public class Decoder
 	public static Properties Decode(InputEvent event)
 	{
 		System.out.println(event.paramString());
-		String sta = "eventType="+part(event.paramString()).replace(oldChar, newChar);
+		String sta = "eventType="+fix(event.paramString());
 		System.out.println(sta);
 		Properties props = new Properties();
 		try
@@ -32,8 +33,9 @@ public class Decoder
 		{'\"','\"'},
 		{'\'','\''}
 	};
-	private static String part(String query)
+	private static String fix(String query)
 	{
+		ArrayList<String> strs=new ArrayList<String>();
 		String pip="";
 		int left, right;
 		char privch='\uE001';
@@ -42,7 +44,10 @@ public class Decoder
 		{
 			lch=cha[0];
 			rch=cha[1];
-			while(query.contains(""+lch)||query.contains(""+rch))
+			while(
+				(query.contains(""+lch)||query.contains(""+rch))
+				&&(query.indexOf(lch)!=query.lastIndexOf(rch))
+				)
 			{
 				pip=""; left=0; right=0;
 				for(int i=0;i<query.length();++i)
@@ -68,9 +73,14 @@ public class Decoder
 				}
 				for(int k=left+1;k<right;++k)
 					pip+=query.charAt(k);
-				query = query.replace(lch+pip+rch, ""+(privch+=1));
+				pip=lch+pip+rch;
+				strs.add(pip);
+				query = query.replace(pip, ""+(privch+=1));
 			}
 		}
+		query.replace(",", System.lineSeparator());
+		for(int i=strs.size(); i>0; --i)
+			query.replace(""+(privch-=1), ""+strs.get(i-1));
 		return query;
 	}
 }
