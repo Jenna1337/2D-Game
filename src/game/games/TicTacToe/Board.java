@@ -1,5 +1,10 @@
 package game.games.TicTacToe;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import javax.swing.JPanel;
 import game.games.TicTacToe.TicTacToe.Location;
 
@@ -7,12 +12,63 @@ import game.games.TicTacToe.TicTacToe.Location;
 public class Board extends JPanel
 {
 	public volatile TicTacToe ttt;
+	private volatile BoardArea[] areas = getBoardAreas();
 	private static byte plrs=(byte)1, diff=(byte)9;
+	private static final int linewidth = 3;
 	public Board()
 	{
-		//resetGame();
+		super();
+		GridLayout layout = new GridLayout(3, 3);
+		layout.setHgap(linewidth);
+		layout.setVgap(linewidth);
+		this.setLayout(layout);
+		this.setBackground(Color.BLACK); // the color of the #
+		System.out.println(java.util.Arrays.toString(areas));
+		for(BoardArea a : areas)
+			this.add(a);
+		resetGame();
+	}
+	private static final class BoardArea extends JPanel implements
+	{
+		private static final int edgeDist = 5;
+		Location l;
+		public BoardArea(Location loc)
+		{
+			super();
+			this.setBackground(Color.white); // Tile bg
+			l=loc;
+		}
+		@Override
+		public void paint(Graphics g)
+		{
+			super.paint(g);
+			g.setColor(Color.BLACK); // shape color
+			switch(l.getPlayer())
+			{
+				case 0:
+					break;
+				case 1: // X
+					g.drawLine(0+edgeDist, 0+edgeDist, this.getWidth()-edgeDist, this.getHeight()-edgeDist);
+					g.drawLine(0+edgeDist, this.getHeight()-edgeDist,  this.getWidth()-edgeDist, 0+edgeDist);
+					break;
+				case 2: // O
+					g.drawOval(0+edgeDist, 0+edgeDist, this.getWidth()-edgeDist*2, this.getHeight()-edgeDist*2);
+					break;
+				default:
+					break;
+			}
+		}
+	}
+	private static final BoardArea[] getBoardAreas()
+	{
+		BoardArea[] a = new BoardArea[9];
+		int i=0;
+		for(Location l : Location.values())
+			a[i++]=new BoardArea(l);
+		return a;
 	}
 	Thread gamethread;
+	private final Board THIS = this;
 	public void resetGame()
 	{
 		ttt=new TicTacToe(plrs, diff);
@@ -24,8 +80,7 @@ public class Board extends JPanel
 				while(winner==0)
 				{
 					while(ttt.nextTurn())
-						System.out.println(ttt);
-					;
+						THIS.repaint();
 					System.out.println("Winner: Player "+(int)(winner=ttt.getWinner()));
 					ttt.reset();
 					System.out.flush();

@@ -1,8 +1,5 @@
 
 import game.GameSelect;
-import game.GameWindow;
-import game.Tile;
-import rendering.shapes.*;
 
 
 /***************************

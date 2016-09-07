@@ -22,7 +22,7 @@ public class StartGame extends Game
 		mb.add(ngb);
 		mb.add(spinplrs);
 		mb.add(spindiff);
-		window.add(mb, BorderLayout.NORTH);
-		window.add(boar, BorderLayout.SOUTH);
+		window.setJMenuBar(mb);
+		window.setContentPane(boar);
 	}
 }

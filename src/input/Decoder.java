@@ -33,8 +33,15 @@ public class Decoder
 		{'\"','\"'},
 		{'\'','\''}
 	};
+	/**
+	 * This method hangs if given certain text
+	 */
+	@SuppressWarnings("unused")
+	@Deprecated
 	private static String fix(String query)
 	{
+		if(true)
+			return query;
 		ArrayList<String> strs=new ArrayList<String>();
 		String pip="";
 		int left, right;
