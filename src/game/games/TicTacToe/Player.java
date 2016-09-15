@@ -34,7 +34,7 @@ class HumanPlayer extends Player
 	}
 	public Location getChoice()
 	{
-		//TODO get user input
+		
 		return Board.waitUserInput();
 	}
 }

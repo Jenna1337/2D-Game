@@ -1,9 +1,7 @@
 package game.games.TicTacToe;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
 import game.games.TicTacToe.TicTacToe.Location;
@@ -22,13 +20,13 @@ public class Board extends JPanel
 		layout.setHgap(linewidth);
 		layout.setVgap(linewidth);
 		this.setLayout(layout);
-		this.setBackground(Color.BLACK); // the color of the #
+		this.setBackground(Color.BLACK); // the color of the grid
 		System.out.println(java.util.Arrays.toString(areas));
 		for(BoardArea a : areas)
 			this.add(a);
 		resetGame();
 	}
-	private static final class BoardArea extends JPanel implements
+	private static final class BoardArea extends JPanel
 	{
 		private static final int edgeDist = 5;
 		Location l;
@@ -74,6 +72,8 @@ public class Board extends JPanel
 		ttt=new TicTacToe(plrs, diff);
 		if(gamethread!=null)
 			gamethread.interrupt();
+		gamethread=null;
+		System.gc();
 		gamethread=new Thread(){
 			public void run(){
 				byte winner=0;
