@@ -13,9 +13,11 @@ import rendering.shapes.Square;
 public final class Tile extends Square
 {
 	private BufferedImage image;
-	public Tile(Point2D location, String imagepath)
+	private final CollisionType collision;
+	public Tile(Point2D location, CollisionType collision, String imagepath)
 	{
 		super(location);
+		this.collision = collision;
 		try
 		{
 			this.image = ImageIO.read(new File(imagepath));
@@ -32,5 +34,9 @@ public final class Tile extends Square
 	public BufferedImage getImage()
 	{
 		return this.image;
+	}
+	public CollisionType getCollision()
+	{
+		return collision;
 	}
 }
