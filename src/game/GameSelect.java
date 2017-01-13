@@ -13,13 +13,13 @@ public class GameSelect implements ActionListener
 		"Burst",
 		"TicTacToe"
 	};
+	private static final JFrame frame = new JFrame("Game Select");
 	public GameSelect(String[] args)
 	{
 		if(args.length>0)
 			getArgs(args);
 		if(cmdStart==false)
 		{
-			JFrame frame = new JFrame("Game Select");
 			JPanel panel = new JPanel();
 			
 			for(String gn : gamelist)
@@ -63,6 +63,7 @@ public class GameSelect implements ActionListener
 			//Try to start game
 			Game game = (Game) Class.forName("game.games."+gamename+".StartGame").newInstance();
 			System.out.println("Started game successfully: "+game.getGameName());
+			frame.dispose();
 		} catch (InstantiationException e) {
 			System.out.println("Error: could not start game: "+gamename);
 		} catch (IllegalAccessException e) {

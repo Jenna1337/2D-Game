@@ -1,8 +1,7 @@
 package rendering;
 
 import game.AnimatedObject;
-import game.Tile;
-
+import game.TileInstance;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.HierarchyEvent;
@@ -18,7 +17,7 @@ public class Renderer extends JPanel implements PropertyChangeListener, Hierarch
 {
 	public final int TILE_WIDTH  = 10;
 	public final int TILE_HEIGHT = 10;
-	protected ArrayList<Tile> tiles = new ArrayList<Tile>();
+	protected ArrayList<TileInstance> tiles = new ArrayList<TileInstance>();
 	protected ArrayList<AnimatedObject> anims = new ArrayList<AnimatedObject>();
 	
 	public Renderer(){}
@@ -27,18 +26,18 @@ public class Renderer extends JPanel implements PropertyChangeListener, Hierarch
 	public void paint(Graphics g)
 	{
 		super.paint(g);
-		for(Tile t : tiles)
+		for(TileInstance t : tiles)
 			drawTile(t, g);
 		for(AnimatedObject ano : anims)
 			drawAnimatedObject(ano, g);
 	}
 	
-	public void add(Tile t)
+	public void add(TileInstance t)
 	{
 		this.tiles.add(t);
 		t.addPropertyChangeListener(this);
 	}
-	public void drawTile(Tile tile, Graphics g)
+	public void drawTile(TileInstance tile, Graphics g)
 	{
 		g.drawImage(tile.getImage(), tile.getX(), tile.getY(), null);
 	}

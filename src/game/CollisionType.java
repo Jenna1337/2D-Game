@@ -27,7 +27,7 @@ public enum CollisionType
 		coll_LEFT = LEFT;
 		coll_RIGHT= RIGHT;
 	}
-
+	
 	public boolean isCollideUP()
 	{
 		return coll_UP;
@@ -43,5 +43,31 @@ public enum CollisionType
 	public boolean isCollideRIGHT()
 	{
 		return coll_RIGHT;
+	}
+	public byte toByte()
+	{
+		byte b=0;
+		if(isCollideUP())
+			b|=0b00000001;
+		if(isCollideDOWN())
+			b|=0b00000010;
+		if(isCollideLEFT())
+			b|=0b00000100;
+		if(isCollideRIGHT())
+			b|=0b00001000;
+		return b;
+	}
+	public static CollisionType forByte(byte b)
+	{
+		boolean u=((b>>>0)&1)==1,
+				d=((b>>>1)&1)==1,
+				l=((b>>>2)&1)==1,
+				r=((b>>>3)&1)==1;
+		if(b>>>4 == 0)
+			for(CollisionType c : CollisionType.values())
+				if(c.isCollideUP() == u && c.isCollideDOWN() == d
+				&& c.isCollideLEFT() == l && c.isCollideRIGHT() == r)
+					return c;
+		throw new IllegalArgumentException(""+b);
 	}
 }

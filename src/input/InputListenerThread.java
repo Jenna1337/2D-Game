@@ -18,7 +18,7 @@ public abstract class InputListenerThread extends InputAdapter
 	}
 	public void InputRecieved(InputEvent arg0, int arg1)
 	{
-		System.out.println(Integer.toBinaryString(arg1)+" "+Integer.toBinaryString(type)+" "+Integer.toBinaryString(arg1&type));
+		//System.out.println(Integer.toBinaryString(arg1)+" "+Integer.toBinaryString(type)+" "+Integer.toBinaryString(arg1&type));
 		Properties props = Decoder.Decode(arg0);
 		String etype = props.getProperty("eventType");
 		//System.out.println(arg0.paramString());

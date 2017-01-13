@@ -10,9 +10,9 @@ public class Decoder
 {
 	public static Properties Decode(InputEvent event)
 	{
-		System.out.println(event.paramString());
+		//System.out.println(event.paramString());
 		String sta = "eventType="+fix(event.paramString());
-		System.out.println(sta);
+		//System.out.println(sta);
 		Properties props = new Properties();
 		try
 		{
